@@ -1,4 +1,4 @@
-/* --- THEME DEFINITIONS (NEW) --- */
+/* --- THEME DEFINITIONS --- */
 :root {
     /* Light Theme (Default) */
     --primary-color: #007bff;
@@ -41,8 +41,6 @@
     --auth-btn-text: #212529;
     --btn-secondary-bg: #495057;
 }
-/* ---------------------------------- */
-
 
 /* --- GENERAL STYLES --- */
 body {
@@ -55,7 +53,65 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* --- HEADER & NAV BAR --- */
+/* --- LOGIN PAGE STYLES (NEW) --- */
+.login-page-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.login-container {
+    text-align: center;
+}
+.login-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 2rem 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 400px;
+}
+.login-card h1 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+.login-card label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+}
+.login-card input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box; /* Important */
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+.btn-login {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 12px;
+}
+.guest-link {
+    display: block;
+    margin-top: 1.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+.guest-link:hover {
+    text-decoration: underline;
+}
+.theme-switcher-login {
+    margin-top: 2rem;
+}
+
+/* --- HEADER & NAV BAR (SIMPLIFIED) --- */
 header {
     background-color: var(--header-bg);
     color: var(--header-text);
@@ -67,21 +123,10 @@ header {
     border-bottom: 1px solid var(--border-color);
     transition: background-color 0.3s;
 }
-header .header-content {
-    display: flex;
-    align-items: center;
-}
-header h1 {
-    margin: 0;
-    font-size: 1.8em;
-}
-header h1 a {
-    text-decoration: none;
-    color: var(--header-text);
-}
-header nav {
-    margin-left: 30px;
-}
+header .header-content { display: flex; align-items: center; }
+header h1 { margin: 0; font-size: 1.8em; }
+header h1 a { text-decoration: none; color: var(--header-text); }
+header nav { margin-left: 30px; }
 .nav-link {
     color: var(--text-color);
     text-decoration: none;
@@ -90,8 +135,7 @@ header nav {
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
 }
-.nav-link.active,
-.nav-link:hover {
+.nav-link.active, .nav-link:hover {
     color: var(--primary-color);
     border-bottom-color: var(--primary-color);
 }
@@ -106,9 +150,7 @@ header nav {
     margin-left: 10px;
     transition: background-color 0.2s;
 }
-.auth-buttons button:hover {
-    opacity: 0.85;
-}
+.auth-buttons button:hover { opacity: 0.85; }
 
 /* --- BUTTON STYLES (General) --- */
 .btn {
@@ -121,20 +163,16 @@ header nav {
     font-size: 1em;
     margin-top: 15px;
     transition: background-color 0.2s;
+    text-decoration: none;
 }
 .btn:hover { background-color: #0056b3; }
-#tictactoe-reset-btn, #rps-reset-btn {
-    background-color: var(--btn-secondary-bg);
-}
-#tictactoe-reset-btn:hover, #rps-reset-btn:hover {
-    background-color: #5a6268;
-}
-#memory-reset-btn {
-    background-color: #ffc107; color: var(--text-color);
-}
+.btn-play { text-align: center; display: block; }
+#tictactoe-reset-btn, #rps-reset-btn { background-color: var(--btn-secondary-bg); }
+#tictactoe-reset-btn:hover, #rps-reset-btn:hover { background-color: #5a6268; }
+#memory-reset-btn { background-color: #ffc107; color: var(--text-color); }
 #memory-reset-btn:hover { background-color: #e0a800; }
 
-/* --- MAIN LAYOUT --- */
+/* --- MAIN LAYOUT (GALLERY & GAME PAGES) --- */
 .container {
     max-width: 1200px;
     margin: 40px auto;
@@ -166,7 +204,22 @@ header nav {
     border-bottom: 2px solid var(--border-color);
 }
 
-/* --- TIC-TAC-TOE STYLES --- */
+/* Wrapper for dedicated game pages */
+.game-wrapper {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.game-wrapper h2 { color: var(--primary-color); margin-top: 0; }
+.instruction { font-size: 1.1em; color: var(--btn-secondary-bg); margin-top: 15px; }
+
+/* --- GAME STYLES (ALL 5 GAMES) --- */
+
+/* 1. TIC-TAC-TOE STYLES */
 .tictactoe-container { display: flex; flex-direction: column; align-items: center; }
 #tictactoe-status { font-size: 1.2em; font-weight: bold; margin-bottom: 15px; color: var(--secondary-color); }
 .board { display: grid; grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(3, 80px); gap: 5px; margin-bottom: 20px; }
@@ -175,14 +228,14 @@ header nav {
 .cell.x { color: #dc3545; }
 .cell.o { color: #007bff; }
 
-/* --- RPS STYLES --- */
+/* 2. RPS STYLES */
 .rps-container { text-align: center; }
 .rps-score { font-size: 1.1em; margin: 15px 0; font-weight: bold; }
 .rps-buttons .btn-icon { background: none; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 15px; font-size: 2em; margin: 5px; border-radius: 8px; transition: all 0.2s; }
 .rps-buttons .btn-icon:hover { background-color: var(--primary-color); color: white; transform: scale(1.05); }
 #rps-result { font-size: 1.2em; margin-top: 20px; min-height: 25px; font-weight: bold; }
 
-/* --- MEMORY GAME STYLES --- */
+/* 3. MEMORY GAME STYLES */
 .memory-container { display: flex; flex-direction: column; align-items: center; }
 #memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 380px; }
 .memory-card { background-color: var(--primary-color); height: 80px; display: flex; justify-content: center; align-items: center; font-size: 2em; color: var(--primary-color); border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
@@ -190,37 +243,51 @@ header nav {
 .memory-card.matched { background-color: var(--secondary-color); color: white; cursor: default; }
 #memory-status { margin-top: 15px; font-size: 1.1em; color: var(--secondary-color); }
 
-/* --- WHAC-A-MOLE STYLES (NEW) --- */
-.wam-container { display: flex; flex-direction: column; align-items: center; }
-#wam-score { color: var(--secondary-color); font-size: 1.5em; }
-#wam-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 10px;
-    margin-bottom: 20px;
-}
-.wam-square {
-    background-color: var(--bg-color);
-    border: 2px solid var(--border-color);
-    border-radius: 5px;
-    cursor: pointer;
-}
-.wam-square.mole {
-    background-color: #a0522d; /* Mole color */
-    background-image: url('https://img.icons8.com/emoji/48/000000/mole-emoji.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 60%;
-}
+/* 4. SNAKE GAME STYLES */
+#snake-display { font-size: 1.5em; font-weight: bold; color: var(--secondary-color); margin-bottom: 15px; }
+#snake-board { border: 5px solid var(--primary-color); background-color: var(--bg-color); }
+#snake-start-btn { background-color: var(--secondary-color); }
+#snake-start-btn:hover { background-color: #1f7c3d; }
 
-/* --- COOKIE CLICKER STYLES (NEW) --- */
-.cookie-container { text-align: center; }
-#cookie-cps { margin-top: -15px; color: var(--btn-secondary-bg); }
-#cookie-clicker { margin: 20px 0; }
-#cookie-img { width: 150px; cursor: pointer; transition: transform 0.1s; }
-#cookie-img:active { transform: scale(0.9); }
-#cookie-upgrades .btn { width: 100%; }
+/* 5. DINO RUN STYLES */
+#dino-game {
+    width: 600px;
+    height: 200px;
+    border-bottom: 2px solid var(--text-color);
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-color);
+}
+#dino {
+    width: 50px;
+    height: 50px;
+    font-size: 50px; 
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+}
+#obstacle {
+    width: 30px;
+    height: 60px;
+    background-color: var(--secondary-color);
+    position: absolute;
+    bottom: 0;
+    right: -30px; 
+}
+.dino-jump { animation: dino-jump 0.5s linear; }
+.obstacle-animate { animation: obstacle-move 2s linear infinite; }
+@keyframes dino-jump {
+    0% { bottom: 0; }
+    50% { bottom: 100px; }
+    100% { bottom: 0; }
+}
+@keyframes obstacle-move {
+    0% { right: -30px; }
+    100% { right: 600px; }
+}
+#dino-score { font-size: 1.5em; font-weight: bold; color: var(--secondary-color); }
+#dino-restart-btn { background-color: var(--btn-secondary-bg); }
 
 /* --- MODAL (Account Pop-up) STYLES --- */
 .modal {

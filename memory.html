@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match - Arcade Hub 🕹️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1><a href="home.html">🎮 Arcade Hub</a></h1>
+            <nav>
+                <a href="home.html" class="nav-link active">All Games</a>
+            </nav>
+        </div>
+        <div class="auth-buttons">
+            <button onclick="openModal('login')">Login</button>
+            <button onclick="openModal('signup')">Sign Up</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="game-wrapper">
+             <h2>Memory Match Game 🧠</h2>
+            <div class="memory-container">
+                <div id="memory-board">
+                    </div>
+                <div id="memory-status">Moves: 0 | Pairs Left: 8</div>
+                <button class="btn" id="memory-reset-btn" onclick="initMemoryGame()">Restart Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="accountModal" class="modal">
+        </div>
+
+    <footer>
+        <div class="theme-switcher">
+            <span>Theme:</span>
+            <button class="btn btn-theme" onclick="setTheme('light')">Light</button>
+            <button class="btn btn-theme" onclick="setTheme('dark')">Dark</button>
+            <button class="btn btn-theme" onclick="setTheme('extra-dark')">Extra Dark</button>
+        </div>
+        <p>&copy; 2025 Arcade Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

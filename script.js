@@ -1,25 +1,19 @@
 // =======================================================
-// 0. THEME SWITCHER LOGIC (NEW)
+// 0. THEME SWITCHER LOGIC
 // =======================================================
-// Runs first to set theme before page load
 (function() {
-    // Check localStorage for a saved theme
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 })();
 
 window.setTheme = function(theme) {
-    // Set the theme on the <html> tag
     document.documentElement.setAttribute('data-theme', theme);
-    // Save the theme choice to localStorage
     localStorage.setItem('theme', theme);
 }
 
 // =======================================================
 // 1. MODAL/ACCOUNT LOGIC
 // =======================================================
-// We check if 'accountModal' exists, so this logic doesn't
-// error on a page without it (though both pages have it).
 const modal = document.getElementById('accountModal');
 if (modal) {
     const modalTitle = document.getElementById('modal-title');
@@ -35,19 +29,16 @@ if (modal) {
             modalSubmitBtn.textContent = 'Sign Up';
         }
     }
-
     window.closeModal = function() {
         modal.style.display = 'none';
     }
-
     window.onclick = function(event) {
         if (event.target === modal) {
             closeModal();
         }
     }
-
     window.handleAccount = function(event) {
-        event.preventDefault(); // Stop form from submitting
+        event.preventDefault();
         const formType = modalTitle.textContent.includes('Login') ? 'Login' : 'Sign Up';
         alert(`Attempting ${formType}... (Success in demo!)\n\nIn a real app, this would contact the server.`);
         closeModal();
@@ -55,14 +46,12 @@ if (modal) {
 }
 
 // =======================================================
-// 2. TIC-TAC-TOE LOGIC
+// 2. TIC-TAC-TOE LOGIC (for tictactoe.html)
 // =======================================================
-// Only run this code if the TTT board is on the page
 if (document.getElementById('tictactoe-board')) {
     const tttStatus = document.getElementById('tictactoe-status');
     const tttBoard = document.getElementById('tictactoe-board');
     const tttResetBtn = document.getElementById('tictactoe-reset-btn');
-
     let tttPlayer = 'X';
     let tttState = Array(9).fill('');
     let tttActive = true;
@@ -126,7 +115,7 @@ if (document.getElementById('tictactoe-board')) {
 }
 
 // =======================================================
-// 3. ROCK, PAPER, SCISSORS LOGIC
+// 3. ROCK, PAPER, SCISSORS LOGIC (for rps.html)
 // =======================================================
 if (document.getElementById('rps-result')) {
     const rpsResult = document.getElementById('rps-result');
@@ -143,13 +132,11 @@ if (document.getElementById('rps-result')) {
         if (choice === 'scissors') return '✌️';
         return '';
     }
-
     window.playRPS = function(playerChoice) {
         const computerChoice = getComputerChoice();
         const p = getEmoji(playerChoice);
         const c = getEmoji(computerChoice);
         let result = '';
-
         if (playerChoice === computerChoice) {
             result = `It's a tie! ${p} vs ${c}`;
             rpsResult.style.color = 'var(--text-color)';
@@ -166,12 +153,10 @@ if (document.getElementById('rps-result')) {
             rpsResult.style.color = '#dc3545';
             cScore++;
         }
-
         rpsResult.innerHTML = result;
         rpsPlayerScore.textContent = pScore;
         rpsCompScore.textContent = cScore;
     }
-
     window.resetRPS = function() {
         pScore = 0;
         cScore = 0;
@@ -183,7 +168,7 @@ if (document.getElementById('rps-result')) {
 }
 
 // =======================================================
-// 4. MEMORY CARD GAME LOGIC
+// 4. MEMORY CARD GAME LOGIC (for memory.html)
 // =======================================================
 if (document.getElementById('memory-board')) {
     const memoryBoard = document.getElementById('memory-board');
@@ -266,97 +251,157 @@ if (document.getElementById('memory-board')) {
 }
 
 // =======================================================
-// 5. WHAC-A-MOLE LOGIC (NEW)
+// 5. SNAKE GAME LOGIC (for snake.html)
 // =======================================================
-if (document.getElementById('wam-grid')) {
-    const wamGrid = document.getElementById('wam-grid');
-    const wamScore = document.getElementById('wam-score');
-    const wamStartBtn = document.getElementById('wam-start-btn');
-    let wamCurrentScore = 0;
-    let moleTimerId = null;
-    let gameActive = false;
+if (document.getElementById('snake-board')) {
+    const canvas = document.getElementById('snake-board');
+    const ctx = canvas.getContext('2d');
+    const startButton = document.getElementById('snake-start-btn');
+    const scoreDisplay = document.getElementById('snake-display');
+    const gridSize = 20;
+    const cellSize = canvas.width / gridSize;
+    const speed = 150;
+    let snake, food, dx, dy, score, gameLoopId;
 
-    // Create the 9 squares
-    for (let i = 0; i < 9; i++) {
-        const square = document.createElement('div');
-        square.classList.add('wam-square');
-        square.id = 'wam-' + i;
-        wamGrid.appendChild(square);
-        square.addEventListener('mousedown', () => {
-            if (gameActive && square.classList.contains('mole')) {
-                wamCurrentScore++;
-                wamScore.textContent = 'Score: ' + wamCurrentScore;
-                square.classList.remove('mole');
+    function generateFood() {
+        food = {
+            x: Math.floor(Math.random() * gridSize),
+            y: Math.floor(Math.random() * gridSize)
+        };
+        for (let segment of snake) {
+            if (segment.x === food.x && segment.y === food.y) {
+                generateFood();
             }
-        });
+        }
     }
-    
-    function randomSquare() {
-        // Clear all squares
-        document.querySelectorAll('.wam-square').forEach(sq => sq.classList.remove('mole'));
-        // Add mole to a random one
-        let randomPos = Math.floor(Math.random() * 9);
-        document.getElementById('wam-' + randomPos).classList.add('mole');
+    function drawElement(x, y, color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
     }
-    
-    wamStartBtn.addEventListener('click', () => {
-        if (gameActive) return;
-        gameActive = true;
-        wamCurrentScore = 0;
-        wamScore.textContent = 'Score: 0';
-        wamStartBtn.disabled = true;
-        moleTimerId = setInterval(randomSquare, 800);
-        
-        // Game duration: 20 seconds
-        setTimeout(() => {
-            clearInterval(moleTimerId);
-            gameActive = false;
-            wamStartBtn.disabled = false;
-            alert('Game Over! Your final score is: ' + wamCurrentScore);
-            document.querySelectorAll('.wam-square').forEach(sq => sq.classList.remove('mole'));
-        }, 20000);
-    });
+    function drawGame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawElement(food.x, food.y, 'red');
+        snake.forEach(segment => drawElement(segment.x, segment.y, 'green'));
+    }
+    function moveSnake() {
+        if (dx === 0 && dy === 0) return;
+        const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+        if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
+            return gameOver();
+        }
+        for (let i = 1; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) {
+                return gameOver();
+            }
+        }
+        snake.unshift(head);
+        if (head.x === food.x && head.y === food.y) {
+            score++;
+            scoreDisplay.textContent = `Score: ${score}`;
+            generateFood();
+        } else {
+            snake.pop();
+        }
+        drawGame();
+    }
+    function changeDirection(event) {
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+            event.preventDefault();
+        }
+        const keyPressed = event.key;
+        const goingUp = dy === -1, goingDown = dy === 1, goingLeft = dx === -1, goingRight = dx === 1;
+        if (keyPressed === 'ArrowLeft' && !goingRight) { dx = -1; dy = 0; }
+        else if (keyPressed === 'ArrowUp' && !goingDown) { dx = 0; dy = -1; }
+        else if (keyPressed === 'ArrowRight' && !goingLeft) { dx = 1; dy = 0; }
+        else if (keyPressed === 'ArrowDown' && !goingUp) { dx = 0; dy = 1; }
+    }
+    function gameOver() {
+        clearInterval(gameLoopId);
+        alert(`Game Over! Final Score: ${score}`);
+        startButton.textContent = 'Play Again';
+        startButton.disabled = false;
+        document.removeEventListener('keydown', changeDirection);
+    }
+    function initSnakeGame() {
+        clearInterval(gameLoopId);
+        snake = [{ x: 10, y: 10 }];
+        dx = 1; dy = 0; score = 0;
+        scoreDisplay.textContent = 'Score: 0';
+        generateFood();
+        drawGame();
+        startButton.textContent = 'Playing...';
+        startButton.disabled = true;
+        gameLoopId = setInterval(moveSnake, speed);
+        document.addEventListener('keydown', changeDirection);
+    }
+    startButton.addEventListener('click', initSnakeGame);
 }
 
 // =======================================================
-// 6. COOKIE CLICKER LOGIC (NEW)
+// 6. DINO RUN LOGIC (for dino.html)
 // =======================================================
-if (document.getElementById('cookie-clicker')) {
-    const cookieImg = document.getElementById('cookie-img');
-    const cookieScore = document.getElementById('cookie-score');
-    const cookieCps = document.getElementById('cookie-cps');
-    const autoClickerBtn = document.getElementById('upgrade-auto-clicker');
-
+if (document.getElementById('dino-game')) {
+    const dino = document.getElementById('dino');
+    const obstacle = document.getElementById('obstacle');
+    const scoreDisplay = document.getElementById('dino-score');
+    const restartBtn = document.getElementById('dino-restart-btn');
     let score = 0;
-    let cookiesPerSecond = 0;
-    let autoClickerCost = 15;
+    let isJumping = false;
+    let gameActive = false;
+    let scoreInterval;
+    let collisionCheck;
 
-    cookieImg.addEventListener('click', () => {
-        score++;
-        updateScore();
-    });
-
-    autoClickerBtn.addEventListener('click', () => {
-        if (score >= autoClickerCost) {
-            score -= autoClickerCost;
-            cookiesPerSecond++;
-            autoClickerCost = Math.ceil(autoClickerCost * 1.5); // Increase cost
-            
-            autoClickerBtn.textContent = `Auto-Clicker (Cost: ${autoClickerCost})`;
-            updateScore();
-        } else {
-            alert('Not enough cookies!');
+    function jump() {
+        if (isJumping || !gameActive) return;
+        isJumping = true;
+        dino.classList.add('dino-jump');
+        setTimeout(() => {
+            dino.classList.remove('dino-jump');
+            isJumping = false;
+        }, 500); // Must match animation-duration
+    }
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            e.preventDefault();
+            if (!gameActive) {
+                startGame();
+            } else {
+                jump();
+            }
         }
     });
 
-    function updateScore() {
-        cookieScore.textContent = `${Math.floor(score)} Cookies`;
-        cookieCps.textContent = `per second: ${cookiesPerSecond}`;
-    }
+    function startGame() {
+        if (gameActive) return;
+        gameActive = true;
+        score = 0;
+        scoreDisplay.textContent = 'Score: 0';
+        obstacle.style.animation = 'obstacle-move 2s linear infinite';
+        restartBtn.style.display = 'none';
+        dino.innerHTML = '🦖';
 
-    // Game loop for auto-clickers
-    setInterval(() => {
-        score += cookiesPerSecond;
-        updateScore();
-    }, 1000);
+        scoreInterval = setInterval(() => {
+            score++;
+            scoreDisplay.textContent = 'Score: ' + score;
+        }, 100);
+
+        collisionCheck = setInterval(() => {
+            const dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue('bottom'));
+            const obstacleLeft = parseInt(window.getComputedStyle(obstacle).getPropertyValue('left'));
+
+            if (obstacleLeft < 70 && obstacleLeft > 20 && dinoTop < 60) {
+                gameActive = false;
+                obstacle.style.animation = 'none';
+                clearInterval(scoreInterval);
+                clearInterval(collisionCheck);
+                dino.innerHTML = '💥';
+                restartBtn.style.display = 'block';
+            }
+        }, 10);
+    }
+    
+    restartBtn.addEventListener('click', startGame);
+    
+    // Show prompt to start
+    alert('Press Spacebar to Start!');
 }

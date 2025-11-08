@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS - Arcade Hub 🕹️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1><a href="home.html">🎮 Arcade Hub</a></h1>
+            <nav>
+                <a href="home.html" class="nav-link active">All Games</a>
+            </nav>
+        </div>
+        <div class="auth-buttons">
+            <button onclick="openModal('login')">Login</button>
+            <button onclick="openModal('signup')">Sign Up</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="game-wrapper">
+            <h2>Rock, Paper, Scissors 👊</h2>
+            <div class="rps-container">
+                <div class="rps-score">
+                    Player: <span id="rps-player-score">0</span> | Computer: <span id="rps-comp-score">0</span>
+                </div>
+                <p>Choose your move:</p>
+                <div class="rps-buttons">
+                    <button class="btn-icon" onclick="playRPS('rock')" title="Rock">👊</button>
+                    <button class="btn-icon" onclick="playRPS('paper')" title="Paper">✋</button>
+                    <button class="btn-icon" onclick="playRPS('scissors')" title="Scissors">✌️</button>
+                </div>
+                <div id="rps-result">Click a hand to begin!</div>
+                <button class="btn" id="rps-reset-btn" onclick="resetRPS()">Reset Score</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="accountModal" class="modal">
+        </div>
+
+    <footer>
+        <div class="theme-switcher">
+            <span>Theme:</span>
+            <button class="btn btn-theme" onclick="setTheme('light')">Light</button>
+            <button class="btn btn-theme" onclick="setTheme('dark')">Dark</button>
+            <button class="btn btn-theme" onclick="setTheme('extra-dark')">Extra Dark</button>
+        </div>
+        <p>&copy; 2025 Arcade Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
