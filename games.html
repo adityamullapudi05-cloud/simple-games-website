@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Hub 🕹️</title>
+    <title>More Games - Arcade Hub 🕹️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
         <div class="header-content">
             <h1><a href="index.html">🎮 Arcade Hub</a></h1>
             <nav>
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="games.html" class="nav-link">More Games</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="games.html" class="nav-link active">More Games</a>
             </nav>
         </div>
         <div class="auth-buttons">
@@ -23,48 +23,35 @@
     </header>
 
     <div class="container">
-        <h2>Our Featured Games</h2>
+        <h2>Full Game Library</h2>
         
         <div class="game-grid">
             
             <div class="game-card">
-                <h3>Tic-Tac-Toe (X vs O)</h3>
-                <div class="tictactoe-container">
-                    <div id="tictactoe-status">It's X's turn!</div>
-                    <div class="board" id="tictactoe-board">
+                <h3>Whac-A-Mole! 🔨</h3>
+                <div class="wam-container">
+                    <h2 id="wam-score">Score: 0</h2>
+                    <div id="wam-grid">
                         </div>
-                    <button class="btn" id="tictactoe-reset-btn">Reset Game</button>
+                    <button class="btn" id="wam-start-btn">Start Game</button>
                 </div>
             </div>
 
             <div class="game-card">
-                <h3>Rock, Paper, Scissors 👊</h3>
-                <div class="rps-container">
-                    <div class="rps-score">
-                        Player: <span id="rps-player-score">0</span> | Computer: <span id="rps-comp-score">0</span>
+                <h3>Cookie Clicker 🍪</h3>
+                <div class="cookie-container">
+                    <h2 id="cookie-score">0 Cookies</h2>
+                    <p id="cookie-cps">per second: 0</p>
+                    <div id="cookie-clicker">
+                        <img src="https://assets.stickpng.com/images/580b57fbd9996e24bc43c0f6.png" alt="Cookie" id="cookie-img">
                     </div>
-                    <p>Choose your move:</p>
-                    <div class="rps-buttons">
-                        <button class="btn-icon" onclick="playRPS('rock')" title="Rock">👊</button>
-                        <button class="btn-icon" onclick="playRPS('paper')" title="Paper">✋</button>
-                        <button class="btn-icon" onclick="playRPS('scissors')" title="Scissors">✌️</button>
+                    <div id="cookie-upgrades">
+                        <button class="btn" id="upgrade-auto-clicker">Auto-Clicker (Cost: 15)</button>
                     </div>
-                    <div id="rps-result">Click a hand to begin!</div>
-                    <button class="btn" id="rps-reset-btn" onclick="resetRPS()">Reset Score</button>
                 </div>
             </div>
 
-            <div class="game-card">
-                <h3>Memory Match Game 🧠</h3>
-                <div class="memory-container">
-                    <div id="memory-board">
-                        </div>
-                    <div id="memory-status">Moves: 0 | Pairs Left: 8</div>
-                    <button class="btn" id="memory-reset-btn" onclick="initMemoryGame()">Restart Game</button>
-                </div>
             </div>
-
-        </div>
     </div>
 
     <div id="accountModal" class="modal">

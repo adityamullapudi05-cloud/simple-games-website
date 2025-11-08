@@ -1,0 +1,256 @@
+/* --- THEME DEFINITIONS (NEW) --- */
+:root {
+    /* Light Theme (Default) */
+    --primary-color: #007bff;
+    --secondary-color: #28a745;
+    --text-color: #212529;
+    --bg-color: #e9ecef;
+    --card-bg: #ffffff;
+    --header-bg: #ffffff;
+    --header-text: #007bff;
+    --border-color: #dee2e6;
+    --auth-btn-bg: #007bff;
+    --auth-btn-text: #ffffff;
+    --btn-secondary-bg: #6c757d;
+}
+
+[data-theme="dark"] {
+    --primary-color: #0d6efd;
+    --secondary-color: #198754;
+    --text-color: #f8f9fa;
+    --bg-color: #212529;
+    --card-bg: #343a40;
+    --header-bg: #343a40;
+    --header-text: #ffffff;
+    --border-color: #495057;
+    --auth-btn-bg: #0d6efd;
+    --auth-btn-text: #ffffff;
+    --btn-secondary-bg: #6c757d;
+}
+
+[data-theme="extra-dark"] {
+    --primary-color: #00aaff;
+    --secondary-color: #32cd32;
+    --text-color: #adb5bd;
+    --bg-color: #0c0c0c;
+    --card-bg: #1a1a1a;
+    --header-bg: #1a1a1a;
+    --header-text: #00aaff;
+    --border-color: #333;
+    --auth-btn-bg: #00aaff;
+    --auth-btn-text: #212529;
+    --btn-secondary-bg: #495057;
+}
+/* ---------------------------------- */
+
+
+/* --- GENERAL STYLES --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- HEADER & NAV BAR --- */
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+header .header-content {
+    display: flex;
+    align-items: center;
+}
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+header h1 a {
+    text-decoration: none;
+    color: var(--header-text);
+}
+header nav {
+    margin-left: 30px;
+}
+.nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.1em;
+    margin: 0 15px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+.nav-link.active,
+.nav-link:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+.auth-buttons button {
+    background-color: var(--auth-btn-bg);
+    color: var(--auth-btn-text);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 10px;
+    transition: background-color 0.2s;
+}
+.auth-buttons button:hover {
+    opacity: 0.85;
+}
+
+/* --- BUTTON STYLES (General) --- */
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+}
+.btn:hover { background-color: #0056b3; }
+#tictactoe-reset-btn, #rps-reset-btn {
+    background-color: var(--btn-secondary-bg);
+}
+#tictactoe-reset-btn:hover, #rps-reset-btn:hover {
+    background-color: #5a6268;
+}
+#memory-reset-btn {
+    background-color: #ffc107; color: var(--text-color);
+}
+#memory-reset-btn:hover { background-color: #e0a800; }
+
+/* --- MAIN LAYOUT --- */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+.game-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    transition: all 0.3s;
+}
+.game-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.game-card h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* --- TIC-TAC-TOE STYLES --- */
+.tictactoe-container { display: flex; flex-direction: column; align-items: center; }
+#tictactoe-status { font-size: 1.2em; font-weight: bold; margin-bottom: 15px; color: var(--secondary-color); }
+.board { display: grid; grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(3, 80px); gap: 5px; margin-bottom: 20px; }
+.cell { background-color: var(--bg-color); border: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; font-size: 2.5em; font-weight: bold; cursor: pointer; user-select: none; }
+.cell:hover:not(.x):not(.o) { background-color: #e9ecef; }
+.cell.x { color: #dc3545; }
+.cell.o { color: #007bff; }
+
+/* --- RPS STYLES --- */
+.rps-container { text-align: center; }
+.rps-score { font-size: 1.1em; margin: 15px 0; font-weight: bold; }
+.rps-buttons .btn-icon { background: none; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 15px; font-size: 2em; margin: 5px; border-radius: 8px; transition: all 0.2s; }
+.rps-buttons .btn-icon:hover { background-color: var(--primary-color); color: white; transform: scale(1.05); }
+#rps-result { font-size: 1.2em; margin-top: 20px; min-height: 25px; font-weight: bold; }
+
+/* --- MEMORY GAME STYLES --- */
+.memory-container { display: flex; flex-direction: column; align-items: center; }
+#memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 380px; }
+.memory-card { background-color: var(--primary-color); height: 80px; display: flex; justify-content: center; align-items: center; font-size: 2em; color: var(--primary-color); border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
+.memory-card.flipped { background-color: var(--card-bg); color: var(--text-color); }
+.memory-card.matched { background-color: var(--secondary-color); color: white; cursor: default; }
+#memory-status { margin-top: 15px; font-size: 1.1em; color: var(--secondary-color); }
+
+/* --- WHAC-A-MOLE STYLES (NEW) --- */
+.wam-container { display: flex; flex-direction: column; align-items: center; }
+#wam-score { color: var(--secondary-color); font-size: 1.5em; }
+#wam-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.wam-square {
+    background-color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.wam-square.mole {
+    background-color: #a0522d; /* Mole color */
+    background-image: url('https://img.icons8.com/emoji/48/000000/mole-emoji.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+
+/* --- COOKIE CLICKER STYLES (NEW) --- */
+.cookie-container { text-align: center; }
+#cookie-cps { margin-top: -15px; color: var(--btn-secondary-bg); }
+#cookie-clicker { margin: 20px 0; }
+#cookie-img { width: 150px; cursor: pointer; transition: transform 0.1s; }
+#cookie-img:active { transform: scale(0.9); }
+#cookie-upgrades .btn { width: 100%; }
+
+/* --- MODAL (Account Pop-up) STYLES --- */
+.modal {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+    background-color: var(--card-bg); margin: 10% auto; padding: 30px; border: 1px solid var(--border-color); width: 80%; max-width: 400px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+.close-btn:hover, .close-btn:focus { color: var(--text-color); text-decoration: none; cursor: pointer; }
+.modal-content input { width: 100%; padding: 10px; margin: 8px 0 15px 0; display: inline-block; border: 1px solid var(--border-color); box-sizing: border-box; border-radius: 4px; background: var(--bg-color); color: var(--text-color); }
+.modal-content button { width: 100%; margin-top: 10px; }
+.modal-content small { display: block; margin-top: 15px; text-align: center; color: var(--btn-secondary-bg); }
+
+/* --- FOOTER STYLES --- */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+.theme-switcher { margin-bottom: 15px; }
+.theme-switcher span { margin-right: 10px; }
+.btn-theme {
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 5px 10px;
+    margin: 0 5px;
+}
