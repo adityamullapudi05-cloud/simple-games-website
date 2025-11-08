@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Games Corner 🕹️</title>
     <style>
-        /* --- CSS STYLES --- */
+        /* --- GENERAL CSS STYLES --- */
         :root {
             --primary-color: #3f51b5; /* Indigo */
             --secondary-color: #ff9800; /* Orange Accent */
             --text-color: #333;
             --bg-color: #f4f7f6;
             --card-bg: #ffffff;
+            --game-cell-bg: #e0e0e0;
         }
 
         body {
@@ -54,7 +55,6 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             padding: 25px;
-            text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -66,15 +66,10 @@
         .game-card h3 {
             color: var(--primary-color);
             margin-top: 0;
+            text-align: center;
         }
 
-        .game-card .icon {
-            font-size: 3em;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            display: block;
-        }
-
+        /* --- BUTTON STYLES (General) --- */
         .game-card button {
             background-color: var(--secondary-color);
             color: white;
@@ -86,9 +81,94 @@
             margin-top: 15px;
             transition: background-color 0.2s;
         }
-
         .game-card button:hover {
-            background-color: #e68900; /* Darker Orange */
+            background-color: #e68900;
+        }
+
+        /* --- TIC-TAC-TOE STYLES --- */
+        .tictactoe-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        #tictactoe-status {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            grid-template-rows: repeat(3, 80px);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .cell {
+            background-color: var(--game-cell-bg);
+            border: 2px solid #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em; 
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            user-select: none;
+        }
+        .cell:hover:not(.x):not(.o) { background-color: #cccccc; }
+        .cell.x { color: #d32f2f; } 
+        .cell.o { color: #1976d2; } 
+        #tictactoe-reset-btn { align-self: center; }
+
+        /* --- SNAKE GAME STYLES --- */
+        .snake-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #snake-board {
+            border: 5px solid var(--primary-color);
+            background-color: #f0f0f0;
+            margin: 15px 0;
+        }
+        #snake-display {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        .instruction {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        #snake-start-btn {
+            background-color: #4CAF50; /* Green Start Button */
+        }
+        #snake-start-btn:hover {
+            background-color: #45a049;
+        }
+        
+        /* --- NUMBER GUESSING STYLES --- */
+        .guess-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #guess-input {
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 80px;
+            text-align: center;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #guess-message {
+            margin-top: 15px;
+            font-size: 1em;
+            min-height: 20px;
         }
 
         footer {
@@ -104,7 +184,7 @@
 
     <header>
         <h1>Simple Games Corner 🕹️</h1>
-        <p>Classic fun. No downloads. Just play!</p>
+        <p>Three classic browser games ready to play!</p>
     </header>
 
     <div class="container">
@@ -112,25 +192,35 @@
         
         <div class="game-grid">
             
-            <div class="game-card" id="game-1">
-                <span class="icon">🧱</span>
-                <h3>Block Stack Challenge</h3>
-                <p>Test your speed and planning by stacking falling blocks. High score wins!</p>
-                <button onclick="startGame('Block Stack Challenge')">Play Now</button>
+            <div class="game-card">
+                <h3>Tic-Tac-Toe (X vs O)</h3>
+                <div class="tictactoe-container">
+                    <div id="tictactoe-status">It's X's turn!</div>
+                    <div class="board" id="tictactoe-board">
+                        </div>
+                    <button id="tictactoe-reset-btn">Reset Game</button>
+                </div>
             </div>
 
-            <div class="game-card" id="game-2">
-                <span class="icon">🐍</span>
-                <h3>Wiggly Worm Arena</h3>
-                <p>Grow your worm, but watch out for the walls and your own tail! Classic fun.</p>
-                <button onclick="startGame('Wiggly Worm Arena')">Play Now</button>
+            <div class="game-card">
+                <h3>The Snake Game 🐍</h3>
+                <div class="snake-container">
+                    <div id="snake-display">Score: 0</div>
+                    <canvas id="snake-board" width="300" height="300"></canvas>
+                    <button id="snake-start-btn">Start Game</button>
+                    <p class="instruction">Use Arrow Keys to move!</p>
+                </div>
             </div>
 
-            <div class="game-card" id="game-3">
-                <span class="icon">💰</span>
-                <h3>Idle Clicker Gold</h3>
-                <p>Click your way to fortune! A simple, addictive game of ever-increasing numbers.</p>
-                <button onclick="startGame('Idle Clicker Gold')">Play Now</button>
+            <div class="game-card">
+                <h3>Number Guessing Game 🧠</h3>
+                <div class="guess-container">
+                    <p>Guess a number between 1 and 100:</p>
+                    <input type="number" id="guess-input" min="1" max="100">
+                    <button onclick="checkGuess()">Submit Guess</button>
+                    <p id="guess-message">You have 10 tries remaining.</p>
+                    <button id="guess-reset-btn" onclick="initGuessingGame()">Start New Game</button>
+                </div>
             </div>
 
         </div>
@@ -141,11 +231,317 @@
     </footer>
 
     <script>
-        function startGame(gameName) {
-            // In a real scenario, this would navigate to the game page 
-            // or launch the game canvas/iframe.
-            alert("Starting " + gameName + "!\n(In a real site, the game would load here.)");
+        // =======================================================
+        // 1. TIC-TAC-TOE LOGIC
+        // =======================================================
+        const tttStatus = document.getElementById('tictactoe-status');
+        const tttBoard = document.getElementById('tictactoe-board');
+        const tttResetBtn = document.getElementById('tictactoe-reset-btn');
+
+        let tttPlayer = 'X';
+        let tttState = Array(9).fill('');
+        let tttActive = true;
+
+        const tttConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        const tttMsgTurn = () => `It's ${tttPlayer}'s turn!`;
+        const tttMsgWin = () => `Player ${tttPlayer} has won! 🎉`;
+        const tttMsgDraw = () => `Game ended in a draw! 🤷‍♂️`;
+
+        function tttUpdateStatus(message) { tttStatus.innerHTML = message; }
+
+        function tttRenderBoard() {
+            tttBoard.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                if (tttState[i]) {
+                    cell.innerHTML = tttState[i];
+                    cell.classList.add(tttState[i].toLowerCase());
+                }
+                cell.addEventListener('click', tttHandleClick);
+                tttBoard.appendChild(cell);
+            }
         }
+
+        function tttHandleClick(e) {
+            const cell = e.target;
+            const index = parseInt(cell.dataset.index);
+
+            if (tttState[index] !== '' || !tttActive) return;
+
+            tttState[index] = tttPlayer;
+            cell.innerHTML = tttPlayer;
+            cell.classList.add(tttPlayer.toLowerCase());
+            
+            tttValidateResult();
+        }
+
+        function tttChangePlayer() {
+            tttPlayer = tttPlayer === 'X' ? 'O' : 'X';
+            tttUpdateStatus(tttMsgTurn());
+        }
+
+        function tttValidateResult() {
+            let won = false;
+            for (let i = 0; i < tttConditions.length; i++) {
+                const [a, b, c] = tttConditions[i];
+                if (tttState[a] && tttState[a] === tttState[b] && tttState[a] === tttState[c]) {
+                    won = true;
+                    [a, b, c].forEach(idx => tttBoard.children[idx].style.backgroundColor = '#b9f6ca');
+                    break;
+                }
+            }
+
+            if (won) {
+                tttUpdateStatus(tttMsgWin());
+                tttActive = false;
+            } else if (!tttState.includes('')) {
+                tttUpdateStatus(tttMsgDraw());
+                tttActive = false;
+            } else {
+                tttChangePlayer();
+            }
+        }
+
+        function tttRestartGame() {
+            tttActive = true;
+            tttPlayer = 'X';
+            tttState = Array(9).fill('');
+            tttRenderBoard();
+            tttUpdateStatus(tttMsgTurn());
+        }
+
+        tttResetBtn.addEventListener('click', tttRestartGame);
+        tttRenderBoard();
+        // End of Tic-Tac-Toe Logic
+        // =======================================================
+
+
+        // =======================================================
+        // 2. SNAKE GAME LOGIC
+        // =======================================================
+        const canvas = document.getElementById('snake-board');
+        const ctx = canvas.getContext('2d');
+        const startButton = document.getElementById('snake-start-btn');
+        const scoreDisplay = document.getElementById('snake-display');
+
+        // Game parameters
+        const gridSize = 20; // Number of cells wide/high
+        const cellSize = canvas.width / gridSize;
+        const speed = 150; // Milliseconds per move
+        let snake;
+        let food;
+        let dx = 0; // Direction x-coordinate
+        let dy = 0; // Direction y-coordinate
+        let score = 0;
+        let gameLoopId;
+
+        // Colors
+        const snakeColor = '#388e3c'; // Dark Green
+        const foodColor = '#d32f2f'; // Red
+
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * gridSize),
+                y: Math.floor(Math.random() * gridSize)
+            };
+            // Ensure food does not spawn on the snake
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood(); // Recurse until safe spot found
+                }
+            }
+        }
+
+        function drawElement(x, y, color) {
+            ctx.fillStyle = color;
+            ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+            // Optional: Draw a border for clarity
+            ctx.strokeStyle = '#222';
+            ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        }
+
+        function drawGame() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw food
+            drawElement(food.x, food.y, foodColor);
+
+            // Draw snake
+            snake.forEach(segment => drawElement(segment.x, segment.y, snakeColor));
+        }
+
+        function moveSnake() {
+            if (dx === 0 && dy === 0) return; // Don't move if game hasn't started
+
+            // Create new head position
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+            // Check for game over (wall collision)
+            if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
+                gameOver();
+                return;
+            }
+
+            // Check for game over (self collision)
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            // Add new head
+            snake.unshift(head);
+
+            // Check if food was eaten
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                scoreDisplay.textContent = `Score: ${score}`;
+                generateFood(); // Keep the head, just generate new food
+            } else {
+                snake.pop(); // Remove the tail if no food was eaten
+            }
+
+            drawGame();
+        }
+
+        function changeDirection(event) {
+            // Prevent scrolling with arrow keys
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                event.preventDefault();
+            }
+            
+            const keyPressed = event.key;
+            const goingUp = dy === -1;
+            const goingDown = dy === 1;
+            const goingLeft = dx === -1;
+            const goingRight = dx === 1;
+
+            // Only allow direction change if it's not the reverse of current direction
+            if (keyPressed === 'ArrowLeft' && !goingRight) { dx = -1; dy = 0; }
+            else if (keyPressed === 'ArrowUp' && !goingDown) { dx = 0; dy = -1; }
+            else if (keyPressed === 'ArrowRight' && !goingLeft) { dx = 1; dy = 0; }
+            else if (keyPressed === 'ArrowDown' && !goingUp) { dx = 0; dy = 1; }
+        }
+
+        function gameOver() {
+            clearInterval(gameLoopId);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Game Over!', canvas.width / 2, canvas.height / 2 - 20);
+            ctx.font = '20px Arial';
+            ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 15);
+            
+            startButton.textContent = 'Play Again';
+            startButton.disabled = false;
+            document.removeEventListener('keydown', changeDirection);
+        }
+
+        function initSnakeGame() {
+            // Reset game state
+            clearInterval(gameLoopId);
+            snake = [
+                { x: 10, y: 10 },
+                { x: 9, y: 10 },
+                { x: 8, y: 10 }
+            ];
+            dx = 1; // Start moving right
+            dy = 0;
+            score = 0;
+            scoreDisplay.textContent = 'Score: 0';
+
+            generateFood();
+            drawGame();
+            
+            startButton.textContent = 'Playing...';
+            startButton.disabled = true;
+
+            // Start the game loop
+            gameLoopId = setInterval(moveSnake, speed);
+            document.addEventListener('keydown', changeDirection);
+        }
+
+        startButton.addEventListener('click', initSnakeGame);
+
+        // Optional: Draw initial snake on load
+        (function initialDraw() {
+             snake = [{ x: 10, y: 10 }];
+             generateFood();
+             drawGame();
+             startButton.textContent = 'Start Game';
+        })();
+        // End of Snake Game Logic
+        // =======================================================
+
+
+        // =======================================================
+        // 3. NUMBER GUESSING GAME LOGIC
+        // =======================================================
+        const guessInput = document.getElementById('guess-input');
+        const guessMessage = document.getElementById('guess-message');
+        
+        let targetNumber;
+        let guessesLeft;
+        const MAX_TRIES = 10;
+
+        window.initGuessingGame = function() {
+            targetNumber = Math.floor(Math.random() * 100) + 1;
+            guessesLeft = MAX_TRIES;
+            guessMessage.innerHTML = `Game started! You have ${guessesLeft} tries remaining.`;
+            guessInput.value = '';
+            guessInput.disabled = false;
+            guessInput.focus();
+            guessMessage.style.color = '';
+        }
+
+        window.checkGuess = function() {
+            if (guessesLeft <= 0) return;
+
+            const userGuess = parseInt(guessInput.value);
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                guessMessage.innerHTML = "Please enter a valid number between 1 and 100.";
+                guessMessage.style.color = 'red';
+                return;
+            }
+
+            guessesLeft--;
+
+            if (userGuess === targetNumber) {
+                guessMessage.innerHTML = `🎉 Correct! You guessed it in ${MAX_TRIES - guessesLeft} tries!`;
+                guessMessage.style.color = 'green';
+                guessInput.disabled = true;
+            } else if (guessesLeft === 0) {
+                guessMessage.innerHTML = `Game Over! The number was ${targetNumber}. Try again.`;
+                guessMessage.style.color = 'red';
+                guessInput.disabled = true;
+            } else if (userGuess < targetNumber) {
+                guessMessage.innerHTML = `Too Low! Try a higher number. (${guessesLeft} tries left)`;
+                guessMessage.style.color = 'darkorange';
+            } else if (userGuess > targetNumber) {
+                guessMessage.innerHTML = `Too High! Try a lower number. (${guessesLeft} tries left)`;
+                guessMessage.style.color = 'darkorange';
+            }
+            
+            guessInput.value = '';
+        }
+
+        // Start the guessing game when the page loads
+        initGuessingGame();
+        // End of Number Guessing Logic
+        // =======================================================
+
     </script>
 
 </body>
