@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Games Corner 🕹️</title>
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #3f51b5; /* Indigo */
+            --secondary-color: #ff9800; /* Orange Accent */
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .game-card .icon {
+            font-size: 3em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .game-card button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .game-card button:hover {
+            background-color: #e68900; /* Darker Orange */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            background-color: #ddd;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Simple Games Corner 🕹️</h1>
+        <p>Classic fun. No downloads. Just play!</p>
+    </header>
+
+    <div class="container">
+        <h2>Our Arcade Favorites</h2>
+        
+        <div class="game-grid">
+            
+            <div class="game-card" id="game-1">
+                <span class="icon">🧱</span>
+                <h3>Block Stack Challenge</h3>
+                <p>Test your speed and planning by stacking falling blocks. High score wins!</p>
+                <button onclick="startGame('Block Stack Challenge')">Play Now</button>
+            </div>
+
+            <div class="game-card" id="game-2">
+                <span class="icon">🐍</span>
+                <h3>Wiggly Worm Arena</h3>
+                <p>Grow your worm, but watch out for the walls and your own tail! Classic fun.</p>
+                <button onclick="startGame('Wiggly Worm Arena')">Play Now</button>
+            </div>
+
+            <div class="game-card" id="game-3">
+                <span class="icon">💰</span>
+                <h3>Idle Clicker Gold</h3>
+                <p>Click your way to fortune! A simple, addictive game of ever-increasing numbers.</p>
+                <button onclick="startGame('Idle Clicker Gold')">Play Now</button>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Simple Games Corner. Happy Gaming!</p>
+    </footer>
+
+    <script>
+        function startGame(gameName) {
+            // In a real scenario, this would navigate to the game page 
+            // or launch the game canvas/iframe.
+            alert("Starting " + gameName + "!\n(In a real site, the game would load here.)");
+        }
+    </script>
+
+</body>
+</html>
