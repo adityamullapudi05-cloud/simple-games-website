@@ -53,7 +53,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* --- LOGIN PAGE STYLES (NEW) --- */
+/* --- LOGIN PAGE STYLES --- */
 .login-page-body {
     display: flex;
     justify-content: center;
@@ -62,6 +62,9 @@ body {
 }
 .login-container {
     text-align: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 .login-card {
     background-color: var(--card-bg);
@@ -71,6 +74,8 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     width: 100%;
     max-width: 400px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 .login-card h1 {
     color: var(--primary-color);
@@ -111,7 +116,7 @@ body {
     margin-top: 2rem;
 }
 
-/* --- HEADER & NAV BAR (SIMPLIFIED) --- */
+/* --- HEADER & NAV BAR --- */
 header {
     background-color: var(--header-bg);
     color: var(--header-text);
@@ -122,6 +127,7 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid var(--border-color);
     transition: background-color 0.3s;
+    flex-wrap: wrap; /* Allow wrapping on mobile */
 }
 header .header-content { display: flex; align-items: center; }
 header h1 { margin: 0; font-size: 1.8em; }
@@ -164,9 +170,11 @@ header nav { margin-left: 30px; }
     margin-top: 15px;
     transition: background-color 0.2s;
     text-decoration: none;
+    -webkit-tap-highlight-color: transparent; /* Remove tap flash on mobile */
 }
 .btn:hover { background-color: #0056b3; }
 .btn-play { text-align: center; display: block; }
+
 #tictactoe-reset-btn, #rps-reset-btn { background-color: var(--btn-secondary-bg); }
 #tictactoe-reset-btn:hover, #rps-reset-btn:hover { background-color: #5a6268; }
 #memory-reset-btn { background-color: #ffc107; color: var(--text-color); }
@@ -177,10 +185,11 @@ header nav { margin-left: 30px; }
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Min 300px */
     gap: 30px;
     margin-top: 30px;
 }
@@ -213,9 +222,10 @@ header nav { margin-left: 30px; }
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 .game-wrapper h2 { color: var(--primary-color); margin-top: 0; }
-.instruction { font-size: 1.1em; color: var(--btn-secondary-bg); margin-top: 15px; }
+.instruction { font-size: 1.1em; color: var(--btn-secondary-bg); margin-top: 15px; text-align: center; }
 
 /* --- GAME STYLES (ALL 5 GAMES) --- */
 
@@ -233,25 +243,83 @@ header nav { margin-left: 30px; }
 .rps-score { font-size: 1.1em; margin: 15px 0; font-weight: bold; }
 .rps-buttons .btn-icon { background: none; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 15px; font-size: 2em; margin: 5px; border-radius: 8px; transition: all 0.2s; }
 .rps-buttons .btn-icon:hover { background-color: var(--primary-color); color: white; transform: scale(1.05); }
-#rps-result { font-size: 1.2em; margin-top: 20px; min-height: 25px; font-weight: bold; }
+#rps-result { 
+    font-size: 1.2em; 
+    margin-top: 20px; 
+    min-height: 25px;
+    font-weight: bold; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* 3. MEMORY GAME STYLES */
 .memory-container { display: flex; flex-direction: column; align-items: center; }
 #memory-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 380px; }
-.memory-card { background-color: var(--primary-color); height: 80px; display: flex; justify-content: center; align-items: center; font-size: 2em; color: var(--primary-color); border-radius: 5px; cursor: pointer; transition: transform 0.3s; }
+.memory-card { 
+    background-color: var(--primary-color); 
+    height: auto; 
+    aspect-ratio: 2 / 3; /* Width: 2, Height: 3 */
+    font-size: 1.5em; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    color: var(--primary-color); 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: transform 0.3s; 
+}
 .memory-card.flipped { background-color: var(--card-bg); color: var(--text-color); }
 .memory-card.matched { background-color: var(--secondary-color); color: white; cursor: default; }
 #memory-status { margin-top: 15px; font-size: 1.1em; color: var(--secondary-color); }
 
 /* 4. SNAKE GAME STYLES */
 #snake-display { font-size: 1.5em; font-weight: bold; color: var(--secondary-color); margin-bottom: 15px; }
-#snake-board { border: 5px solid var(--primary-color); background-color: var(--bg-color); }
+#snake-board { 
+    border: 5px solid var(--primary-color); 
+    background-color: var(--bg-color); 
+    /* Make canvas responsive */
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+}
 #snake-start-btn { background-color: var(--secondary-color); }
 #snake-start-btn:hover { background-color: #1f7c3d; }
 
-/* 5. DINO RUN STYLES */
+/* Snake controls styling */
+#snake-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    /* Hide on desktop, show on mobile */
+    display: none; 
+}
+.snake-controls-middle {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+.snake-control-btn {
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    line-height: 60px;
+    text-align: center;
+    background-color: var(--btn-secondary-bg);
+    margin: 5px;
+}
+.snake-control-btn:hover {
+    background-color: #5a6268;
+}
+
+
+/* 5. DINO RUN STYLES (UPDATED) */
 #dino-game {
-    width: 600px;
+    width: 100%; /* Make game area responsive */
+    max-width: 600px; /* Set a max size */
     height: 200px;
     border-bottom: 2px solid var(--text-color);
     margin: 20px auto;
@@ -260,31 +328,40 @@ header nav { margin-left: 30px; }
     background: var(--bg-color);
 }
 #dino {
-    width: 50px;
-    height: 50px;
-    font-size: 50px; 
+    width: 30px;  /* 5 pixels * 6px each */
+    height: 30px; /* 5 pixels * 6px each */
     position: absolute;
     bottom: 0;
     left: 20px;
+    display: grid;
+    /* We will use a 5x5 grid for the pixel art Dino */
+    grid-template-rows: repeat(5, 6px); /* 30px / 5 = 6px per pixel */
+    grid-template-columns: repeat(5, 6px); /* 30px / 5 = 6px per pixel */
 }
+.dino-pixel {
+    width: 6px; /* Each pixel dot */
+    height: 6px; /* Each pixel dot */
+    background-color: var(--text-color); 
+}
+
 #obstacle {
-    width: 30px;
-    height: 60px;
+    width: 20px;  /* Decreased from 30px */
+    height: 40px; /* Decreased from 60px */
     background-color: var(--secondary-color);
     position: absolute;
     bottom: 0;
-    right: -30px; 
+    right: -20px; /* Match width */
 }
 .dino-jump { animation: dino-jump 0.5s linear; }
 .obstacle-animate { animation: obstacle-move 2s linear infinite; }
 @keyframes dino-jump {
     0% { bottom: 0; }
-    50% { bottom: 100px; }
+    50% { bottom: 80px; } /* Adjust jump height proportionally */
     100% { bottom: 0; }
 }
 @keyframes obstacle-move {
-    0% { right: -30px; }
-    100% { right: 600px; }
+    0% { right: -20px; } /* Match width */
+    100% { right: 105%; } /* Make animation responsive */
 }
 #dino-score { font-size: 1.5em; font-weight: bold; color: var(--secondary-color); }
 #dino-restart-btn { background-color: var(--btn-secondary-bg); }
@@ -320,4 +397,106 @@ footer {
     border: 1px solid var(--border-color);
     padding: 5px 10px;
     margin: 0 5px;
+}
+
+
+/* ======================================================= */
+/* --- RESPONSIVE MEDIA QUERIES --- */
+/* ======================================================= */
+
+@media (max-width: 768px) {
+    
+    /* --- General Layout --- */
+    .container {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+
+    .game-grid {
+        grid-template-columns: 1fr; /* Stack cards */
+        gap: 20px;
+    }
+
+    .game-wrapper {
+        padding: 20px 15px;
+    }
+
+    /* --- Header --- */
+    header {
+        flex-direction: column; /* Stack logo and auth buttons */
+        padding: 15px 20px;
+    }
+    header .header-content {
+        margin-bottom: 15px;
+        flex-direction: column;
+    }
+    header h1 {
+        font-size: 1.5em;
+    }
+    header nav {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .nav-link {
+        font-size: 1em;
+        margin: 0 10px;
+    }
+    .auth-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+    .auth-buttons button {
+        width: 48%;
+        margin: 0;
+    }
+    
+    /* --- Login Page --- */
+    .login-card {
+        padding: 1.5rem;
+        width: 90%;
+    }
+
+    /* --- Modal --- */
+    .modal-content {
+        width: 90%;
+        margin: 20% auto;
+        padding: 20px;
+    }
+
+    /* --- Game Specific Tweaks --- */
+    .board { /* Tic-Tac-Toe */
+        grid-template-columns: repeat(3, 70px);
+        grid-template-rows: repeat(3, 70px);
+    }
+    
+    #memory-board {
+        gap: 8px;
+    }
+    .memory-card {
+        font-size: 1.2em;
+    }
+
+    /* Dino game animation still moves based on fixed width
+       but the container itself is responsive */
+    #dino-game {
+        height: 150px; /* Slightly shorter on mobile */
+    }
+    #dino {
+        transform: scale(0.8); /* Make dino smaller */
+        transform-origin: bottom left;
+    }
+    #obstacle {
+        transform: scale(0.8); /* Make obstacle smaller */
+        transform-origin: bottom left;
+    }
+    
+    .instruction {
+        font-size: 1em;
+    }
+
+    /* Show snake controls only on mobile */
+    #snake-controls {
+        display: flex;
+    }
 }

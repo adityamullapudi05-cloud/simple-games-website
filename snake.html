@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- This tag is essential for mobile compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game - Arcade Hub 🕹️</title>
+    <!-- Links to your single CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- STANDARD HEADER -->
     <header>
         <div class="header-content">
             <h1><a href="home.html">🎮 Arcade Hub</a></h1>
@@ -16,24 +19,58 @@
             </nav>
         </div>
         <div class="auth-buttons">
-            <button onclick="openModal('login')">Login</button>
-            <button onclick="openModal('signup')">Sign Up</button>
+            <!-- Auth buttons are dynamically loaded by script.js -->
         </div>
     </header>
 
+    <!-- MAIN CONTENT / GAME WRAPPER -->
     <div class="container">
         <div class="game-wrapper">
             <h2>The Snake Game 🐍</h2>
+            <!-- This is where the score is displayed -->
             <div id="snake-display">Score: 0</div>
+            
+            <!-- This is the game canvas -->
             <canvas id="snake-board" width="400" height="400"></canvas>
+            
+            <!-- This button starts the game -->
             <button class="btn" id="snake-start-btn">Start Game</button>
-            <p class="instruction">Use Arrow Keys to move!</p>
+            <p class="instruction">Use Arrow Keys or on-screen controls!</p>
+
+            <!-- 
+              *** THIS IS THE NEW PART FOR MOBILE ***
+              These are the on-screen buttons that will
+              only appear on small screens.
+            -->
+            <div id="snake-controls">
+                <button id="snake-up" class="btn snake-control-btn">↑</button>
+                <div class="snake-controls-middle">
+                    <button id="snake-left" class="btn snake-control-btn">←</button>
+                    <button id="snake-right" class="btn snake-control-btn">→</button>
+                </div>
+                <button id="snake-down" class="btn snake-control-btn">↓</button>
+            </div>
+
         </div>
     </div>
 
+    <!-- ACCOUNT MODAL (POPUP) -->
     <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modal-title"></h3>
+            <form onsubmit="handleAccount(event)">
+                <label for="modal_username"><b>Username</b></label>
+                <input type="text" id="modal_username" placeholder="Enter Username" name="modal_username" required>
+                <label for="modal_psw"><b>Password</b></label>
+                <input type="password" id="modal_psw" placeholder="Enter Password" name="modal_psw" required>
+                <button type="submit" id="modal-submit-btn" class="btn"></button>
+            </form>
+            <small>*Note: This is a frontend demo. No data is stored.*</small>
         </div>
+    </div>
 
+    <!-- STANDARD FOOTER -->
     <footer>
         <div class="theme-switcher">
             <span>Theme:</span>
@@ -44,6 +81,7 @@
         <p>&copy; 2025 Arcade Hub. All rights reserved.</p>
     </footer>
 
+    <!-- This links to your single JavaScript file -->
     <script src="script.js"></script>
 
 </body>

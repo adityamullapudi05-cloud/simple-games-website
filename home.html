@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- STANDARD HEADER -->
     <header>
         <div class="header-content">
             <h1><a href="home.html">🎮 Arcade Hub</a></h1>
@@ -16,40 +17,45 @@
             </nav>
         </div>
         <div class="auth-buttons">
-            <button onclick="openModal('login')">Login</button>
-            <button onclick="openModal('signup')">Sign Up</button>
+            <!-- Auth buttons dynamically loaded by script.js -->
         </div>
     </header>
 
+    <!-- MAIN CONTENT / GAME GRID (GALLERY) -->
     <div class="container">
         <h2>Full Game Library</h2>
         
         <div class="game-grid">
             
+            <!-- Card 1: Tic-Tac-Toe -->
             <div class="game-card">
                 <h3>Tic-Tac-Toe</h3>
                 <p>The classic two-player game of X's and O's. Challenge a friend!</p>
                 <a href="tictactoe.html" class="btn btn-play">Play Now</a>
             </div>
 
+            <!-- Card 2: Rock, Paper, Scissors -->
             <div class="game-card">
                 <h3>Rock, Paper, Scissors</h3>
                 <p>Test your luck against the computer. Can you win the best of 5?</p>
                 <a href="rps.html" class="btn btn-play">Play Now</a>
             </div>
 
+            <!-- Card 3: Memory Match -->
             <div class="game-card">
                 <h3>Memory Match Game</h3>
                 <p>Find all the matching pairs. How many moves will it take you?</p>
                 <a href="memory.html" class="btn btn-play">Play Now</a>
             </div>
 
+            <!-- Card 4: Snake Game -->
             <div class="game-card">
                 <h3>The Snake Game 🐍</h3>
                 <p>Eat the food, grow your snake, and don't hit the walls (or yourself)!</p>
                 <a href="snake.html" class="btn btn-play">Play Now</a>
             </div>
 
+            <!-- Card 5: Dino Run -->
             <div class="game-card">
                 <h3>Dino Run 🦖</h3>
                 <p>Jump over the obstacles and see how long you can survive.</p>
@@ -59,21 +65,23 @@
         </div>
     </div>
 
+    <!-- ACCOUNT MODAL (POPUP) -->
     <div id="accountModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <h3 id="modal-title"></h3>
             <form onsubmit="handleAccount(event)">
                 <label for="modal_username"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="modal_username" required>
+                <input type="text" id="modal_username" placeholder="Enter Username" name="modal_username" required>
                 <label for="modal_psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="modal_psw" required>
+                <input type="password" id="modal_psw" placeholder="Enter Password" name="modal_psw" required>
                 <button type="submit" id="modal-submit-btn" class="btn"></button>
             </form>
             <small>*Note: This is a frontend demo. No data is stored.*</small>
         </div>
     </div>
 
+    <!-- STANDARD FOOTER -->
     <footer>
         <div class="theme-switcher">
             <span>Theme:</span>

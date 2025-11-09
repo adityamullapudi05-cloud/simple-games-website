@@ -34,23 +34,7 @@
         </div>
     </div>
 
-    <script>
-        // Theme switcher logic, duplicated here so it works on the login page
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
-        window.setTheme = function(theme) {
-            document.documentElement.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-        }
-        // Mock login
-        document.getElementById('login-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Login successful! (Demo)\n\nIn a real app, you would be redirected.');
-            // Redirect to the home page after "logging in"
-            window.location.href = 'home.html';
-        });
-    </script>
+    <!-- This page only needs the theme-switcher part of the script -->
+    <script src="script.js"></script>
 </body>
 </html>
