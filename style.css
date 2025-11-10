@@ -173,7 +173,11 @@ header nav { margin-left: 30px; }
     -webkit-tap-highlight-color: transparent; /* Remove tap flash on mobile */
 }
 .btn:hover { background-color: #0056b3; }
-.btn-play { text-align: center; display: block; }
+.btn-play { 
+    text-align: center; 
+    display: block; 
+    margin-top: auto; /* Push button to bottom */
+}
 
 #tictactoe-reset-btn, #rps-reset-btn { background-color: var(--btn-secondary-bg); }
 #tictactoe-reset-btn:hover, #rps-reset-btn:hover { background-color: #5a6268; }
@@ -187,12 +191,16 @@ header nav { margin-left: 30px; }
     padding: 0 20px;
     box-sizing: border-box;
 }
+
+/* NEW: Game Grid for 2-column layout */
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Min 300px */
+    /* On large screens, max two columns of roughly equal size */
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
     gap: 30px;
     margin-top: 30px;
 }
+
 .game-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -200,6 +208,8 @@ header nav { margin-left: 30px; }
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     padding: 25px;
     transition: all 0.3s;
+    display: flex; /* Enable flex for vertical spacing */
+    flex-direction: column;
 }
 .game-card:hover {
     transform: translateY(-3px);
@@ -212,6 +222,26 @@ header nav { margin-left: 30px; }
     padding-bottom: 10px;
     border-bottom: 2px solid var(--border-color);
 }
+
+/* NEW: Tile and Tag Styles */
+.game-tag-container {
+    margin: 15px 0;
+    min-height: 25px;
+}
+.game-tag {
+    display: inline-block;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 0.8em;
+    padding: 4px 10px;
+    margin-right: 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.tag-challenge { background-color: #dc3545; color: white; }
+.tag-single { background-color: #ffc107; }
+.tag-multi { background-color: var(--secondary-color); color: white; }
+
 
 /* Wrapper for dedicated game pages */
 .game-wrapper {
@@ -316,7 +346,7 @@ header nav { margin-left: 30px; }
 }
 
 
-/* 5. DINO RUN STYLES (UPDATED) */
+/* 5. DINO RUN STYLES */
 #dino-game {
     width: 100%; /* Make game area responsive */
     max-width: 600px; /* Set a max size */
@@ -413,7 +443,8 @@ footer {
     }
 
     .game-grid {
-        grid-template-columns: 1fr; /* Stack cards */
+        /* Stack cards */
+        grid-template-columns: 1fr; 
         gap: 20px;
     }
 
